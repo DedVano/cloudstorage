@@ -1,0 +1,33 @@
+server:
+  port: 8081
+spring:
+  main:
+    banner-mode: 'console'
+  application:
+    name: fileserver-storage
+  servlet:
+    multipart:
+      max-request-size: 1GB
+      max-file-size: 1GB
+  datasource:
+    url: jdbc:mysql://localhost:3306/fs-storage-db?createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: user
+    password: password
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      hibernate:
+        default_schema: fs-storage-db
+        format_sql: true
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  liquibase:
+    change-log: 'classpath:db/migrations/changeLog.xml'
+#  data:
+#    rest:
+#      base-path: api

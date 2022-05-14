@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{filesList.pageTitle}">List of files</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="css/style.css">
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+    <script th:src="@{/js/files.js}" src="js/files.js"></script>
+</head>
+<body>
+<!--<div class="loginPanel" sec:authorize="isAuthenticated()">-->
+<!--    <span class="loginName" sec:authentication="name"></span>-->
+<!--    <div class="logoutButton">-->
+<!--        <a th:href="@{/logout}"><img title="Logout" th:src="@{/images/exit.png}"/></a>-->
+<!--    </div>-->
+<!--</div>-->
+<p><strong th:text="#{filesList.headerOfList}">Your files:</strong></p>
+
+<div id="navigation"></div>
+<table class="filesList">
+    <thead>
+    <tr>
+        <th th:text="#{filesList.tableItemId}">ID</th>
+        <th th:text="#{filesList.tableItemName}">Name</th>
+        <th th:text="#{filesList.tableItemSizeInKb}">Size, kB</th>
+        <th th:text="#{filesList.tableItemCreated}">Created</th>
+<!--        <th>Owner</th>-->
+<!--        <th sec:authorize="hasRole('ROLE_ADMIN')">Actions</th>-->
+    </tr>
+    </thead>
+    <tbody id="filesList"/>
+</table>
+<div>
+    <button id="createNew">New file</button>
+</div>
+<div>
+    <button id="delete">Delete file</button>
+</div>
+<div>
+    <button id="edit">Edit file</button>
+</div>
+
+<form method="POST" enctype="multipart/form-data" action="/api/files"> File to upload:
+    <input type="file" name="newFile"><br/><br/>
+    <input type="submit" value="Upload"> Press here to upload the file!
+</form>
+<!--<div id="toolbar">-->
+<!--    <a th:href="@{/}" href="../index.html"><img title="Back" th:src="@{/images/back.png}"/></a>-->
+<!--    <a sec:authorize="hasRole('ADMIN')" th:href="@{/genre/add}" href="genre.html"><img title="Add" th:src="@{/images/add.png}"/></a>-->
+<!--</div>-->
+<span id="localizedMessages" type="hidden"
+      th:attr="data-currentPage=#{filesList.tableStringCurrentPage}, data-pageOf=#{filesList.tableStringPageOf},
+            data-nextPage=#{filesList.tableStringNextPage}, data-prevPage=#{filesList.tableStringPreviousPage},
+            data-downloadItem=#{filesList.tableItemDownload}"></span>
+</body>
+</html>
