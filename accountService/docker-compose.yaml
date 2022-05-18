@@ -1,0 +1,14 @@
+version: '3.3'
+services:
+  fsdb:
+    image: mysql:8.0.20
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'account-db'
+      MYSQL_USER: 'accDBuser'
+      MYSQL_PASSWORD: 'AccDBpass2022'
+      MYSQL_ROOT_PASSWORD: 'AccDBpass2022'
+    ports:
+      - '3307:3306'
+    expose:
+      - '3306'

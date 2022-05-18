@@ -1,0 +1,18 @@
+.startOfPage {
+    padding-top: 10px;
+    padding-left: 10px;
+}
+#register-form {
+    padding-top: 10px;
+    padding-left: 30px;
+}
+.inputField label {
+    display: block;
+    float: left;
+    width: 170px;
+    height: 30px;
+}
+.inputForm {
+    display: block;
+    margin: 30px;
+}

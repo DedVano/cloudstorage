@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{registrationPage.pageTitle}">Registration</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="css/style.css">
+    <link rel="stylesheet" th:href="@{/css/register.css}" href="css/register.css">
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+    <script th:src="@{/js/register.js}" src="js/files.js"></script>
+</head>
+<body>
+    <div class="loginAndLocalePanel">
+                <div sec:authorize="isAuthenticated()">
+                    <span class="loginName" sec:authentication="name"></span>
+                    <div class="logoutButton">
+                        <a th:href="@{/logout}"><img th:title="#{pages.logoutButton}" title="Logout" th:src="@{/images/logout.png}"/></a>
+                    </div>
+                </div>
+        <div class="changeLocale" th:switch="${#locale.getLanguage().toString().toLowerCase()}">
+            <a th:case="ru" th:text="English" th:href="@{/register?lang=en}" href="register.html"></a>
+            <a th:case="en" th:text="Русский" th:href="@{/register?lang=ru}" href="register.html"></a>
+        </div>
+    </div>
+    <div class="startOfPage">
+        <a th:href="@{/}" th:title="#{pages.backButton}" href="index.html"><img alt="Back" th:src="@{/images/back.png}"/></a>
+    </div>
+
+    <p><strong th:text="#{registrationPage.headerText}">New user registration</strong></p>
+
+    <div sec:authorize="isAuthenticated()">
+        <div th:text="#{registrationPage.youAreLoggedIn1st}"></div>
+        <div th:text="#{registrationPage.youAreLoggedIn2nd}"></div>
+    </div>
+    <div sec:authorize="isAnonymous()">
+        <form id="register-form" th:action="@{/account}" method="post" action="index.html">
+
+            <div class="inputField">
+                <label for="login-input" th:text="#{registrationPage.login}">login</label>
+                <input class="inputForm" id="login-input" name="login" type="text"/>
+            </div>
+            <div class="inputField">
+                <label for="pass-input" th:text="#{registrationPage.password}">password</label>
+                <input class="inputForm" id="pass-input" name="password" type="password"/>
+            </div>
+            <div class="inputField">
+                <label for="pass2-input" th:text="#{registrationPage.passwordAgain}">repeat password</label>
+                <input class="inputForm" id="pass2-input" type="password"/>
+            </div>
+            <div class="inputField">
+                <label for="firstName-input" th:text="#{registrationPage.firstName}">first name</label>
+                <input class="inputForm" id="firstName-input" name="firstName" type="text"/>
+            </div>
+            <div class="inputField">
+                <label for="lastName-input" th:text="#{registrationPage.lastName}">last name</label>
+                <input class="inputForm" id="lastName-input" name="lastName" type="text"/>
+            </div>
+            <div class="inputField">
+                <label for="email-input" th:text="#{registrationPage.email}">login</label>
+                <input class="inputForm" id="email-input" name="email" type="text"/>
+            </div>
+
+            <div>
+                <button type="button" id="register-submit" th:title="#{editFile.saveButton}"><img alt="Save" th:src="@{/images/save.png}"/></button>
+            </div>
+        </form>
+    </div>
+
+</body>
+</html>

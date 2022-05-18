@@ -1,0 +1,88 @@
+.buttons {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    border: 0;
+    border-radius: 5px;
+    background: #86caec;
+    color: #000000;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+.buttons:hover {
+    border: black;
+    background: #4ba2e1;
+    text-decoration: none;
+}
+.buttons:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px #cbd6ee;
+}
+.buttons[disabled] {
+    color: #8f8f8f;
+}
+.loginAndLocalePanel {
+    position: absolute;
+    right: 5px;
+}
+.loginName {
+    padding-right: 5px;
+}
+.logoutButton {
+    float: right;
+    cursor: pointer;
+}
+.changeLocale {
+    position: relative;
+    top: 20px;
+}
+.arrow {
+    padding: 5px;
+}
+#uploadImage {
+    padding-right: 10px;
+}
+#fileInputButton {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+}
+#name-input {
+    width: 400px;
+}
+#pageSizeField {
+    width: 40px;
+}
+.filesList {
+    table-layout: fixed;
+    width: 80%;
+    border-collapse: collapse;
+    border: 3px solid #5387ef;
+    text-align: right;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+thead th {
+    padding: 15px;
+}
+thead th:nth-child(1) {
+    text-align: left;
+}
+thead th:nth-child(2) {
+    width: 10%;
+}
+thead th:nth-child(3) {
+    width: 15%;
+}
+thead th:nth-child(4) {
+    width: 10%;
+}
+tbody td {
+    padding: 5px;
+}
+tbody td:nth-child(1) {
+    text-align: left;
+}
+tbody tr:hover {
+    background-color: #cbd6ee;
+}

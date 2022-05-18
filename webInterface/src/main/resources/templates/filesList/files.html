@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{filesList.pageTitle}">List of files</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="css/style.css">
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+    <script th:src="@{/js/files.js}" src="js/files.js"></script>
+</head>
+<body>
+    <div class="loginAndLocalePanel">
+        <div sec:authorize="isAuthenticated()">
+            <span class="loginName" sec:authentication="name"></span>
+            <div class="logoutButton">
+                <a th:href="@{/logout}"><img th:title="#{pages.logoutButton}" title="Logout" th:src="@{/images/logout.png}"/></a>
+            </div>
+        </div>
+        <div class="changeLocale" th:switch="${#locale.getLanguage().toString().toLowerCase()}">
+            <a th:case="ru" th:text="English" th:href="@{/files?lang=en}" href="files.html"></a>
+            <a th:case="en" th:text="Русский" th:href="@{/files?lang=ru}" href="files.html"></a>
+        </div>
+    </div>
+
+    <p><strong th:text="#{filesList.headerOfList}">Your files:</strong></p>
+
+    <div id="navigation" th:unless="${files.totalPages}==0">
+        <a class="arrow" th:if="${files.hasPreviousPage}"
+           th:href="@{/files(page=${files.currentPage - 1}, size=${size})}"
+           href="files.html" th:title="#{filesList.tableStringPreviousPage}">
+            <img alt="Prev page" th:src="@{/images/previous.png}"/></a>
+        <span th:text="#{filesList.tableStringCurrentPage}">Current page</span>
+        <span th:text=" ${files.currentPage + 1} "> 1 </span>
+        <span th:text="#{filesList.tableStringPageOf}">of</span>
+        <span th:text=" ${files.totalPages}"> 1</span>
+        <a class="arrow" th:if="${files.hasNextPage}"
+           th:href="@{/files(page=${files.currentPage + 1}, size=${size})}"
+           href="files.html" th:title="#{filesList.tableStringNextPage}">
+            <img alt="Next page" th:src="@{/images/next.png}"/></a>
+    </div>
+    <table class="filesList">
+        <thead>
+        <tr>
+            <th th:text="#{filesList.tableItemName}">Name</th>
+            <th th:text="#{filesList.tableItemSizeInKb}">Size, kB</th>
+            <th th:text="#{filesList.tableItemCreated}">Created</th>
+            <th th:text="#{filesList.tableItemActions}">Actions</th>
+<!--            <th sec:authorize="hasRole('ROLE_ADMIN')">Owner</th>-->
+        </tr>
+        </thead>
+        <tbody id="filesList">
+            <tr th:each="file: ${files.fileEntityList}">
+                <td th:text="${file.name}">filename</td>
+                <td th:text="${file.sizeKb}">size</td>
+                <td th:text="${#strings.substring(file.creationDateTime, 0, #strings.length(file.creationDateTime) - 5)}">created</td>
+                <td>
+                    <a th:title="#{filesList.tableItemDownload}" th:href="@{/file/} + ${file.id}" href="files.html" download="">
+                        <img th:src="@{/images/download.png}"></a>
+                    <a th:title="#{filesList.tableItemRename}" th:href="@{/file/edit(id=${file.id})}" href="files.html">
+                        <img th:src="@{/images/rename.png}"></a>
+                    <a th:id="${file.linkForDelete}" th:name="${file.linkForDelete}" th:title="#{filesList.tableItemDelete}"
+                       th:attr="data-confirm-text=#{filesList.tableItemAreYouSureToDelete}" href="files.html">
+                        <img alt="Delete" th:src="@{/images/delete.png}">
+                    </a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <form id="pageSizeForm" method="get" th:action="@{/files(size=${size})}">
+        <span th:text="#{filesList.tableStringShowQuantityOnPage} + ' '"></span>
+        <input id="pageSizeField" name="size" type="number" th:value="${size}" min="1">
+    </form>
+    <br>
+    <form id="fileInputForm" method="POST" enctype="multipart/form-data" action="/files">
+        <div>
+            <input id="fileInputButton" type="file" name="newFile">
+            <label for="fileInputButton" class="buttons">
+                <img id="uploadImage" th:src="@{/images/upload.png}" th:align="absmiddle">
+                <span id="buttton2" th:text="#{filesList.tableItemUploadButton}">Upload file</span></label>
+        </div>
+    </form>
+</body>
+</html>

@@ -29,20 +29,11 @@
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-data-jpa</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-sleuth</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -58,6 +49,12 @@
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-site-plugin</artifactId>
+            <version>3.12.0</version>
+        </dependency>
+
     </dependencies>
 
     <dependencyManagement>
@@ -82,17 +79,19 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-site-plugin</artifactId>
+                <version>3.12.0</version>
+            </plugin>
         </plugins>
     </build>
 
     <modules>
-<!--        <module>ApiGateway</module>-->
-<!--        <module>Eureka</module>-->
-<!--        <module>AccountService</module>-->
-<!--        <module>CardService</module>-->
-<!--        <module>ClientService</module>-->
-<!--        <module>ProcessingService</module>-->
         <module>fileserver</module>
+        <module>eureka</module>
+        <module>accountService</module>
+        <module>webInterface</module>
     </modules>
 
 </project>

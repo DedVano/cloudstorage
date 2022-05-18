@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{editFile.pageTitle}">Edit file</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="/css/style.css"/>
+</head>
+<body>
+    <div class="row">
+        <a th:href="@{/files}" th:title="#{pages.backButton}" href="files.html"><img alt="Back" th:src="@{/images/back.png}"/></a>
+    </div>
+    <form id="edit-form" th:action="@{/file/save(id=${file.id})}" method="post"
+          action="files.html">
+        <p><strong th:text="#{filesList.tableItemRename} + ':'">Rename file:</strong></p>
+
+        <div class="row">
+            <label for="name-input" th:text="#{filesList.tableItemName}">File name:</label>
+            <input id="name-input" name="name" type="text" th:value="${file.name}"/>
+        </div>
+
+        <div class="row">
+            <button type="submit" th:title="#{editFile.saveButton}"><img alt="Save" th:src="@{/images/save.png}"/></button>
+        </div>
+    </form>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <meta charset="UTF-8"/>
+    <title th:text="#{startPage.pageTitle}">Welcome to storage</title>
+    <link rel="stylesheet" href="/webjars/bootstrap/4.5.0/css/bootstrap.min.css" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" href="css/style.css">
+    <script th:src="@{/webjars/jquery/3.3.1/jquery.min.js}" src="/webjars/jquery/3.3.1/jquery.min.js"></script>
+</head>
+<body>
+    <div class="loginAndLocalePanel">
+                <div sec:authorize="isAuthenticated()">
+                    <span class="loginName" sec:authentication="name"></span>
+                    <div class="logoutButton">
+                        <a th:href="@{/logout}"><img th:title="#{pages.logoutButton}" title="Logout" th:src="@{/images/logout.png}"/></a>
+                    </div>
+                </div>
+        <div class="changeLocale" th:switch="${#locale.getLanguage().toString().toLowerCase()}">
+            <a th:case="ru" th:text="English" th:href="@{/?lang=en}" href="files.html"></a>
+            <a th:case="en" th:text="Русский" th:href="@{/?lang=ru}" href="files.html"></a>
+        </div>
+    </div>
+
+    <p><strong th:text="#{startPage.welcomeText}">Welcome to our cloud storage</strong></p>
+
+    <div>
+        <a class="btn, buttons" th:href="@{/files}" th:text="#{startPage.loginButton}"></a>
+        <a class="btn, buttons" th:href="@{/register}" th:text="#{startPage.registerButton}" th:title="#{startPage.registerButtonTitle}"></a>
+    </div>
+</body>
+</html>

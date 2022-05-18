@@ -1,0 +1,39 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: webInterface
+  main:
+    banner-mode: 'console'
+  servlet:
+    multipart:
+      max-request-size: 1GB
+      max-file-size: 1GB
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8761/eureka/, http://localhost:8762/eureka/
+
+management:
+  endpoints:
+    web:
+      exposure:
+#       include: "*"
+        include: "health, info, metrics, prometheus"
+  endpoint:
+    health:
+      show-details: always
+  info:
+    build:
+      enabled: true
+    env:
+      enabled: true
+    git:
+      mode: "full"
+info:
+  app:
+    version: @project.version@
+    author: dedvano
+    description: web interface for Cloud Storage Project

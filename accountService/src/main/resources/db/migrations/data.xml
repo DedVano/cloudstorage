@@ -1,0 +1,34 @@
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="Ivan Maltsev" id="Fill-tables-role-and-user">
+        <preConditions>
+            <tableExists tableName="ROLE"/>
+            <tableExists tableName="ACCOUNT"/>
+        </preConditions>
+        <insert tableName="ROLE">
+            <column name="NAME" value="ADMIN" />
+        </insert>
+        <insert tableName="ROLE">
+            <column name="NAME" value="USER" />
+        </insert>
+
+        <insert tableName="ACCOUNT">
+            <column name="LOGIN" value="admin" />
+            <column name="PASSWORD" value="$2a$10$Kb.KO/4zazu/42J4270jvetlIYGHnBap2nsG8N.LMugFhzkZrVg0W" />
+            <column name="FIRST_NAME" value="admin" />
+            <column name="STATUS" value="0" />
+            <column name="ROLE_ID" valueComputed="(SELECT ID FROM ROLE WHERE NAME = 'ADMIN')" />
+        </insert>
+        <insert tableName="ACCOUNT">
+            <column name="LOGIN" value="user" />
+            <column name="PASSWORD" value="$2a$10$b.ppKWJ3blkgbSJo.VaMpubxvJDThFExzh6Ska.GDrP5UwQ06EXoe" />
+            <column name="FIRST_NAME" value="user" />
+            <column name="STATUS" value="0" />
+            <column name="ROLE_ID" valueComputed="(SELECT ID FROM ROLE WHERE NAME = 'USER')" />
+        </insert>
+    </changeSet>
+</databaseChangeLog>
